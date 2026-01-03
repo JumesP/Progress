@@ -20,6 +20,9 @@ const Layout = () => {
                         <Link to="/ProgressTracker">Progress Tracker</Link>
                     </li>
                     <li>
+                        <Link to="/Stats">Stats & Progression</Link>
+                    </li>
+                    <li>
                         <Link to="/About">About</Link>
                     </li>
                 </ul>
