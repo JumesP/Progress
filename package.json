@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev": "concurrently \"cd client && npm start\" \"cd server && npm start\"",
-    "build": "cd client && npm run build",
-    "start": "cd server && npm start",
+    "build": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start": "cd server && npm install && node server.js",
     "server": "cd server && npm start",
     "client": "cd client && npm start",
     "install-all": "npm install && cd client && npm install && cd ../server && npm install"
