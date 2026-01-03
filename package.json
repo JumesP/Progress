@@ -1,0 +1,24 @@
+{
+  "name": "progress-app",
+  "version": "1.0.0",
+  "description": "Goals and Progress Tracker App",
+  "private": true,
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd client && npm start\" \"cd server && npm start\"",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "server": "cd server && npm start",
+    "client": "cd client && npm start",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
