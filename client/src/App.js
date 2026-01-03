@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 import About from "./pages/About";
+import Goals from "./pages/Goals";
+import ProgressTracker from "./pages/ProgressTracker";
 
 function App() {
 	return (
@@ -16,6 +18,8 @@ function App() {
 					<>
 						<Route path="/Main" element={<Main />} />
 						<Route path="/About" element={<About />} />
+						<Route path="/Goals" element={<Goals />} />
+						<Route path="/ProgressTracker" element={<ProgressTracker />} />
 					</>
 				</Route>
 			</Routes>
