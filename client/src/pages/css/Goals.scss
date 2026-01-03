@@ -117,30 +117,11 @@
       box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
     }
 
-    .btn-delete {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 0.25rem;
-      opacity: 0.6;
-      transition: all 0.2s;
-      border-radius: 4px;
-
-      &:hover {
-        opacity: 1;
-        background-color: #ffe6e6;
-      }
-
-      &:active {
-        transform: scale(0.95);
-      }
+    &.checked {
+      background-color: #d4edda;
+      border-color: #28a745;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
     }
-
-    // ...existing code...
 
     .goal-input {
       flex: 1;
@@ -151,6 +132,7 @@
       font-family: inherit;
       resize: none;
       transition: border-color 0.2s;
+      background: transparent;
 
       &:focus {
         outline: none;

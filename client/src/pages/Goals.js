@@ -150,14 +150,7 @@ const Goals = () => {
 
       <div className={`bingo-board grid-${gridSize}x${gridSize}`}>
         {goals.map((goal, index) => (
-          <div key={index} className="goal-cell">
-            <button
-              className="btn-delete"
-              onClick={() => handleDeleteGoal(index)}
-              title="Delete goal"
-            >
-              🗑️
-            </button>
+          <div key={index} className={`goal-cell ${checkedGoals[index] ? 'checked' : ''}`}>
             <input
               type="text"
               placeholder="Add goal..."
@@ -166,17 +159,26 @@ const Goals = () => {
               className="goal-input"
             />
             <div className="cell-actions">
-              <input
-                type="checkbox"
-                checked={checkedGoals[index] || false}
-                onChange={() => handleCheckboxChange(index)}
-                className="goal-checkbox"
-              />
+              <div className="checkbox-box">
+                <input
+                  type="checkbox"
+                  checked={checkedGoals[index] || false}
+                  onChange={() => handleCheckboxChange(index)}
+                  className="goal-checkbox"
+                />
+              </div>
               <button
                 className="details-btn"
                 onClick={() => openModal(index)}
               >
                 Details
+              </button>
+              <button
+                className="btn-delete-box"
+                onClick={() => handleDeleteGoal(index)}
+                title="Delete goal"
+              >
+                🗑️
               </button>
             </div>
           </div>
