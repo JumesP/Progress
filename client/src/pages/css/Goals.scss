@@ -71,11 +71,13 @@
 
   .bingo-board {
     display: grid;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 2rem;
-    padding: 1.5rem;
+    padding: 1rem;
     background: #f8f9fa;
     border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
 
     &.grid-3x3 {
       grid-template-columns: repeat(3, 1fr);
@@ -87,6 +89,44 @@
 
     &.grid-5x5 {
       grid-template-columns: repeat(5, 1fr);
+      gap: 0.4rem;
+      padding: 0.5rem;
+
+      .goal-cell {
+        padding: 0.5rem;
+        gap: 0.3rem;
+        aspect-ratio: auto;
+        min-height: 150px;
+
+        .goal-emoji {
+          height: 35px;
+          font-size: 1.1rem;
+          padding: 0.2rem;
+        }
+
+        .goal-input {
+          font-size: 0.7rem;
+          padding: 0.3rem;
+        }
+
+        .cell-actions {
+          height: 28px;
+          gap: 0.2rem;
+
+          .checkbox-btn,
+          .btn-delete-box {
+            width: 28px;
+            height: 28px;
+            font-size: 0.8rem;
+            border-width: 1px;
+          }
+
+          .details-btn {
+            font-size: 0.6rem;
+            padding: 0.25rem 0.4rem;
+          }
+        }
+      }
     }
 
     @media (max-width: 768px) {
@@ -104,12 +144,12 @@
     background: white;
     border: 2px solid #ddd;
     border-radius: 6px;
-    padding: 1rem;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
     transition: all 0.3s ease;
-    min-height: 120px;
+    aspect-ratio: 1 / 1;
     position: relative;
 
     &:hover {
@@ -117,22 +157,60 @@
       box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
     }
 
+    &.empty {
+      background-color: #e9ecef;
+      border-color: #adb5bd;
+      opacity: 0.7;
+
+      &:hover {
+        border-color: #6c757d;
+        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.15);
+      }
+    }
+
     &.checked {
       background-color: #d4edda;
       border-color: #28a745;
       box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+      opacity: 1;
+    }
+
+    .goal-emoji {
+      border: none;
+      border-bottom: 1px solid #e0e0e0;
+      border-radius: 0;
+      padding: 0.4rem;
+      font-size: 1.5rem;
+      text-align: center;
+      background: transparent;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: #007bff;
+      }
+
+      &::placeholder {
+        color: #ccc;
+      }
     }
 
     .goal-input {
       flex: 1;
       border: 1px solid #e0e0e0;
       border-radius: 4px;
-      padding: 0.75rem;
-      font-size: 0.95rem;
+      padding: 0.4rem;
+      font-size: 0.8rem;
       font-family: inherit;
       resize: none;
       transition: border-color 0.2s;
       background: transparent;
+      text-align: center;
 
       &:focus {
         outline: none;
@@ -147,28 +225,54 @@
 
     .cell-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.4rem;
       align-items: center;
       justify-content: space-between;
+      height: 36px;
 
-      .goal-checkbox {
-        width: 20px;
-        height: 20px;
+      .checkbox-btn {
+        width: 36px;
+        height: 36px;
+        background-color: #d4edda;
+        border: 2px solid #28a745;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
         cursor: pointer;
-        accent-color: #28a745;
+        padding: 0;
+        transition: all 0.2s;
+        color: #28a745;
+        font-size: 1.1rem;
+
+        &:hover {
+          box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+
+        &.checked {
+          background-color: #28a745;
+          color: white;
+          box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+        }
       }
 
       .details-btn {
         flex: 1;
-        padding: 0.5rem;
+        padding: 0.4rem 0.75rem;
         background-color: #007bff;
         color: white;
         border: none;
         border-radius: 4px;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 600;
         cursor: pointer;
         transition: background-color 0.2s;
+        height: 100%;
 
         &:hover {
           background-color: #0056b3;
@@ -176,6 +280,31 @@
 
         &:active {
           transform: scale(0.98);
+        }
+      }
+
+      .btn-delete-box {
+        width: 36px;
+        height: 36px;
+        background-color: #f8d7da;
+        border: 2px solid #dc3545;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        padding: 0;
+        flex-shrink: 0;
+        transition: all 0.2s;
+
+        &:hover {
+          background-color: #f5c6cb;
+          box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+        }
+
+        &:active {
+          transform: scale(0.95);
         }
       }
     }
@@ -282,6 +411,558 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Mobile responsive styles
+@media (max-width: 1024px) {
+  .goals-page {
+    padding: 1.5rem;
+    max-width: 100%;
+
+    .bingo-board {
+      padding: 1rem;
+      gap: 0.75rem;
+    }
+
+    .goal-cell {
+      padding: 0.75rem;
+      gap: 0.5rem;
+
+      .goal-emoji {
+        height: 45px;
+        font-size: 1.5rem;
+      }
+
+      .goal-input {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+      }
+
+      .cell-actions {
+        height: 35px;
+        gap: 0.4rem;
+
+        .checkbox-btn,
+        .btn-delete-box {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+
+        .details-btn {
+          font-size: 0.75rem;
+          padding: 0.4rem 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .goals-page {
+    padding: 0.75rem;
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .error-message {
+      font-size: 0.85rem;
+      padding: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .controls {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+
+      label {
+        font-size: 0.9rem;
+      }
+
+      select {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.9rem;
+        width: 100%;
+        max-width: 180px;
+      }
+    }
+
+    .bingo-board {
+      padding: 0.5rem;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &.grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-4x4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-5x5 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.3rem;
+        padding: 0.35rem;
+
+        .goal-cell {
+          padding: 0.3rem;
+          gap: 0.15rem;
+
+          .goal-emoji {
+            height: 28px;
+            font-size: 0.9rem;
+            padding: 0.15rem;
+          }
+
+          .goal-input {
+            font-size: 0.6rem;
+            padding: 0.2rem;
+          }
+
+          .cell-actions {
+            height: 24px;
+            gap: 0.15rem;
+
+            .checkbox-btn,
+            .btn-delete-box {
+              width: 24px;
+              height: 24px;
+              font-size: 0.7rem;
+            }
+
+            .details-btn {
+              font-size: 0.55rem;
+              padding: 0.2rem 0.25rem;
+            }
+          }
+        }
+      }
+    }
+
+    .goal-cell {
+      padding: 0.4rem;
+      gap: 0.25rem;
+      border-radius: 4px;
+      border-width: 1.5px;
+
+      .goal-emoji {
+        height: 32px;
+        font-size: 1rem;
+        padding: 0.2rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .goal-input {
+        font-size: 0.65rem;
+        padding: 0.25rem;
+        min-height: 24px;
+      }
+
+      .cell-actions {
+        height: 28px;
+        gap: 0.2rem;
+
+        .checkbox-btn,
+        .btn-delete-box {
+          width: 28px;
+          height: 28px;
+          font-size: 0.75rem;
+          border-width: 1px;
+          border-radius: 3px;
+        }
+
+        .details-btn {
+          font-size: 0.6rem;
+          padding: 0.25rem 0.3rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .modal-content {
+    padding: 1.25rem;
+    max-width: 90vw;
+    border-radius: 6px;
+
+    h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .goal-title {
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .details-textarea {
+      min-height: 80px;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+
+    .modal-actions {
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.85rem;
+
+      button {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .goals-page {
+    padding: 0.5rem;
+
+    h1 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .error-message {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 3px;
+    }
+
+    .controls {
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+
+      label {
+        font-size: 0.85rem;
+      }
+
+      select {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.8rem;
+        width: 100%;
+        max-width: 160px;
+      }
+    }
+
+    .bingo-board {
+      padding: 0.35rem;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+      border-radius: 6px;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &.grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-4x4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-5x5 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.25rem;
+        padding: 0.3rem;
+
+        .goal-cell {
+          padding: 0.25rem;
+          gap: 0.1rem;
+
+          .goal-emoji {
+            height: 25px;
+            font-size: 0.85rem;
+            padding: 0.1rem;
+          }
+
+          .goal-input {
+            font-size: 0.55rem;
+            padding: 0.15rem;
+          }
+
+          .cell-actions {
+            height: 22px;
+            gap: 0.1rem;
+
+            .checkbox-btn,
+            .btn-delete-box {
+              width: 22px;
+              height: 22px;
+              font-size: 0.65rem;
+            }
+
+            .details-btn {
+              font-size: 0.5rem;
+              padding: 0.15rem 0.2rem;
+            }
+          }
+        }
+      }
+    }
+
+    .goal-cell {
+      padding: 0.3rem;
+      gap: 0.2rem;
+      border-radius: 3px;
+      border-width: 1px;
+
+      .goal-emoji {
+        height: 28px;
+        font-size: 0.9rem;
+        padding: 0.1rem;
+        margin: -0.3rem -0.3rem 0 -0.3rem;
+      }
+
+      .goal-input {
+        font-size: 0.6rem;
+        padding: 0.2rem;
+        min-height: 20px;
+      }
+
+      .cell-actions {
+        height: 24px;
+        gap: 0.15rem;
+
+        .checkbox-btn,
+        .btn-delete-box {
+          width: 24px;
+          height: 24px;
+          font-size: 0.65rem;
+          border-width: 1px;
+          border-radius: 2px;
+        }
+
+        .details-btn {
+          font-size: 0.55rem;
+          padding: 0.2rem 0.25rem;
+        }
+      }
+    }
+  }
+
+  .modal-content {
+    padding: 1rem;
+    max-width: 95vw;
+    border-radius: 5px;
+
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .goal-title {
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
+    }
+
+    .details-textarea {
+      min-height: 70px;
+      font-size: 0.8rem;
+      padding: 0.4rem;
+      border-radius: 3px;
+    }
+
+    .modal-actions {
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+
+      button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .modal-overlay {
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .goals-page {
+    padding: 0.35rem;
+
+    h1 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-message {
+      font-size: 0.75rem;
+      padding: 0.4rem;
+      margin-bottom: 0.35rem;
+      border-radius: 2px;
+    }
+
+    .controls {
+      gap: 0.3rem;
+      margin-bottom: 0.5rem;
+
+      label {
+        font-size: 0.8rem;
+      }
+
+      select {
+        padding: 0.35rem 0.4rem;
+        font-size: 0.75rem;
+        width: 100%;
+        max-width: 140px;
+      }
+    }
+
+    .bingo-board {
+      padding: 0.25rem;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      &.grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-4x4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &.grid-5x5 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.2rem;
+        padding: 0.2rem;
+
+        .goal-cell {
+          padding: 0.2rem;
+          gap: 0.08rem;
+
+          .goal-emoji {
+            height: 22px;
+            font-size: 0.8rem;
+            padding: 0.08rem;
+          }
+
+          .goal-input {
+            font-size: 0.5rem;
+            padding: 0.1rem;
+          }
+
+          .cell-actions {
+            height: 20px;
+            gap: 0.08rem;
+
+            .checkbox-btn,
+            .btn-delete-box {
+              width: 20px;
+              height: 20px;
+              font-size: 0.6rem;
+            }
+
+            .details-btn {
+              font-size: 0.45rem;
+              padding: 0.1rem 0.15rem;
+            }
+          }
+        }
+      }
+    }
+
+    .goal-cell {
+      padding: 0.2rem;
+      gap: 0.15rem;
+      border-radius: 2px;
+      border-width: 1px;
+
+      .goal-emoji {
+        height: 24px;
+        font-size: 0.8rem;
+        padding: 0.08rem;
+        margin: -0.2rem -0.2rem 0 -0.2rem;
+      }
+
+      .goal-input {
+        font-size: 0.55rem;
+        padding: 0.15rem;
+        min-height: 18px;
+      }
+
+      .cell-actions {
+        height: 22px;
+        gap: 0.1rem;
+
+        .checkbox-btn,
+        .btn-delete-box {
+          width: 22px;
+          height: 22px;
+          font-size: 0.6rem;
+          border-width: 1px;
+          border-radius: 2px;
+        }
+
+        .details-btn {
+          font-size: 0.5rem;
+          padding: 0.15rem 0.2rem;
+        }
+      }
+    }
+  }
+
+  .modal-content {
+    padding: 0.85rem;
+    max-width: 95vw;
+    border-radius: 4px;
+
+    h2 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .goal-title {
+      font-size: 0.7rem;
+      margin-bottom: 0.4rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .details-textarea {
+      min-height: 60px;
+      font-size: 0.75rem;
+      padding: 0.35rem;
+      border-radius: 2px;
+    }
+
+    .modal-actions {
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+
+      button {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.75rem;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .modal-overlay {
+    padding: 0.15rem;
   }
 }
 

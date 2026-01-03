@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa";
 import "../pages/css/Goals.scss";
 
 const Goals = () => {
@@ -28,7 +30,7 @@ const Goals = () => {
     const totalGoals = size * size;
     const newGoals = Array(totalGoals)
       .fill(null)
-      .map((_, i) => goals[i] || { text: "", details: "" });
+      .map((_, i) => goals[i] || { text: "", details: "", emoji: "" });
     setGoals(newGoals);
   };
 
@@ -67,7 +69,7 @@ const Goals = () => {
     // Expand or shrink the goals array while preserving existing data
     const newGoals = Array(newCapacity)
       .fill(null)
-      .map((_, i) => goals[i] || { text: "", details: "" });
+      .map((_, i) => goals[i] || { text: "", details: "", emoji: "" });
 
     setGridSize(newSize);
     setGoals(newGoals);
@@ -77,6 +79,13 @@ const Goals = () => {
   const handleGoalTextChange = (index, text) => {
     const newGoals = [...goals];
     newGoals[index] = { ...newGoals[index], text };
+    setGoals(newGoals);
+    saveToLocalStorage(gridSize, newGoals, checkedGoals);
+  };
+
+  const handleEmojiChange = (index, emoji) => {
+    const newGoals = [...goals];
+    newGoals[index] = { ...newGoals[index], emoji };
     setGoals(newGoals);
     saveToLocalStorage(gridSize, newGoals, checkedGoals);
   };
@@ -150,7 +159,15 @@ const Goals = () => {
 
       <div className={`bingo-board grid-${gridSize}x${gridSize}`}>
         {goals.map((goal, index) => (
-          <div key={index} className={`goal-cell ${checkedGoals[index] ? 'checked' : ''}`}>
+          <div key={index} className={`goal-cell ${checkedGoals[index] ? 'checked' : ''} ${!(goal.text || '').trim() && !(goal.emoji || '').trim() ? 'empty' : ''}`}>
+            <input
+              type="text"
+              placeholder="😀"
+              value={goal.emoji || ""}
+              onChange={(e) => handleEmojiChange(index, e.target.value)}
+              className="goal-emoji"
+              maxLength="2"
+            />
             <input
               type="text"
               placeholder="Add goal..."
@@ -159,14 +176,13 @@ const Goals = () => {
               className="goal-input"
             />
             <div className="cell-actions">
-              <div className="checkbox-box">
-                <input
-                  type="checkbox"
-                  checked={checkedGoals[index] || false}
-                  onChange={() => handleCheckboxChange(index)}
-                  className="goal-checkbox"
-                />
-              </div>
+              <button
+                className={`checkbox-btn ${checkedGoals[index] ? 'checked' : ''}`}
+                onClick={() => handleCheckboxChange(index)}
+                title="Toggle goal completion"
+              >
+                <FaCheck />
+              </button>
               <button
                 className="details-btn"
                 onClick={() => openModal(index)}
@@ -178,7 +194,7 @@ const Goals = () => {
                 onClick={() => handleDeleteGoal(index)}
                 title="Delete goal"
               >
-                🗑️
+                <FaTrashCan />
               </button>
             </div>
           </div>
