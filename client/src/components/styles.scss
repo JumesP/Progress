@@ -1,0 +1,51 @@
+@use "variables";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// examples
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+// examples
+
+@import 'atoms/atom.scss';
+@import 'molecules/molecule.scss';
+@import 'organisms/organism.scss';
+
+* {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: black;
+}
+
+//examples
+
+.rarity-common {
+  background: variables.$common-color;
+}
+
+.rarity-uncommon {
+  background: variables.$uncommon-color;
+}
+
+.rarity-rare {
+  background: variables.$rare-color;
+}
+
+.rarity-epic {
+  background: variables.$epic-color;
+}
+
+.rarity-legendary {
+  background: variables.$legendary-color;
+}
+
+.rarity-mythical {
+  background: variables.$mythical-color;
+}
+
+.rarity-mystical {
+  background: variables.$mythical-color;
+}
