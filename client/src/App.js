@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Goals from "./pages/Goals";
 import ProgressTracker from "./pages/ProgressTracker";
 import StatsPage from "./pages/StatsPage";
+import BooksPage from "./pages/BooksPage";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 						<Route path="/Goals" element={<Goals />} />
 						<Route path="/ProgressTracker" element={<ProgressTracker />} />
 						<Route path="/Stats" element={<StatsPage />} />
+						<Route path="/Books" element={<BooksPage />} />
 					</>
 				</Route>
 			</Routes>
