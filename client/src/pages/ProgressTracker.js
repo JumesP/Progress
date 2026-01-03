@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../pages/css/ProgressTracker.scss";
+import {
+  CATEGORIES,
+} from "../utils/statsCalculator";
 
 const ProgressTracker = () => {
   const [items, setItems] = useState([]);
   const [newItemInput, setNewItemInput] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0]); // Default to first category
   const [progressData, setProgressData] = useState({});
+  const [categories, setCategories] = useState({}); // Maps item ID to category
   const [selectedMonth, setSelectedMonth] = useState(0); // 0 = January
 
   // Get dates for a specific month in 2026
@@ -46,6 +51,7 @@ const ProgressTracker = () => {
       const parsedData = JSON.parse(savedData);
       setItems(parsedData.items || []);
       setProgressData(parsedData.progressData || {});
+      setCategories(parsedData.categories || {});
     }
   }, []);
 
@@ -56,12 +62,21 @@ const ProgressTracker = () => {
         name: newItemInput,
       };
       const updatedItems = [...items, newItem];
+      const updatedCategories = {
+        ...categories,
+        [newItem.id]: selectedCategory,
+      };
       setItems(updatedItems);
+      setCategories(updatedCategories);
       setNewItemInput("");
       // Save immediately to localStorage
       localStorage.setItem(
         "progressTrackerData",
-        JSON.stringify({ items: updatedItems, progressData })
+        JSON.stringify({
+          items: updatedItems,
+          progressData,
+          categories: updatedCategories
+        })
       );
     }
   };
@@ -76,10 +91,17 @@ const ProgressTracker = () => {
       }
     });
     setProgressData(newProgressData);
+    const updatedCategories = { ...categories };
+    delete updatedCategories[id];
+    setCategories(updatedCategories);
     // Save immediately to localStorage
     localStorage.setItem(
       "progressTrackerData",
-      JSON.stringify({ items: updatedItems, progressData: newProgressData })
+      JSON.stringify({
+        items: updatedItems,
+        progressData: newProgressData,
+        categories: updatedCategories
+      })
     );
   };
 
@@ -91,7 +113,11 @@ const ProgressTracker = () => {
     // Save immediately to localStorage
     localStorage.setItem(
       "progressTrackerData",
-      JSON.stringify({ items, progressData: newProgressData })
+      JSON.stringify({
+        items,
+        progressData: newProgressData,
+        categories
+      })
     );
   };
 
@@ -105,6 +131,15 @@ const ProgressTracker = () => {
 
   const formatDateDisplay = (date) => {
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
+  const isToday = (date) => {
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
   };
 
   return (
@@ -128,6 +163,18 @@ const ProgressTracker = () => {
       </div>
 
       <div className="add-item-section">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="category-select"
+          title="Select category for this goal"
+        >
+          {CATEGORIES.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           value={newItemInput}
@@ -164,7 +211,10 @@ const ProgressTracker = () => {
           <div className="dates-container">
             <div className="dates-header">
               {datesForMonth.map((date, index) => (
-                <div key={index} className="date-cell">
+                <div
+                  key={index}
+                  className={`date-cell ${isToday(date) ? "today" : ""}`}
+                >
                   {formatDateDisplay(date)}
                 </div>
               ))}
@@ -188,6 +238,12 @@ const ProgressTracker = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="stats-link-section">
+        <p>View your detailed stats, level progression, and achievements:</p>
+        <a href="/Stats" className="btn-stats-link">📊 Go to Stats & Progression</a>
       </div>
     </div>
   );
