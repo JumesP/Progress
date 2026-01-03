@@ -276,35 +276,348 @@
 
     h1 {
       font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .month-selector {
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+
+      label {
+        font-size: 0.95rem;
+      }
+
+      .month-dropdown {
+        width: 100%;
+        max-width: 250px;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+      }
     }
 
     .add-item-section {
       flex-direction: column;
+      max-width: 100%;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+
+      .item-input {
+        padding: 0.6rem;
+        font-size: 0.95rem;
+        border-radius: 4px;
+      }
+
+      .btn-add-item {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.95rem;
+        width: 100%;
+      }
     }
 
     .tracker-container {
-      padding: 1rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tracker-wrapper {
+      gap: 0.75rem;
     }
 
     .items-column {
-      min-width: 160px;
+      min-width: 140px;
 
-      .items-header,
+      .items-header {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+        height: 53px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
       .item-row {
-        padding: 0.75rem;
+        padding: 0.75rem 0.5rem;
+        height: 53px;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        box-sizing: border-box;
+
+        .item-name {
+          font-size: 0.8rem;
+          flex: 1;
+        }
+
+        .btn-remove {
+          width: 24px;
+          height: 24px;
+          font-size: 1.1rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    .dates-container {
+      .dates-header {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .date-cell {
+        min-width: 36px;
+        padding: 0.75rem 0.25rem;
+        font-size: 0.6rem;
+        height: 53px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .checkbox-cell {
+        min-width: 36px;
+        padding: 0.75rem 0.25rem;
+        height: 53px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .progress-checkbox {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-tracker {
+    padding: 0.75rem;
+
+    h1 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .month-selector {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+
+      label {
+        font-size: 0.85rem;
+      }
+
+      .month-dropdown {
+        width: 100%;
+        padding: 0.5rem 0.6rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    .add-item-section {
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+
+      .item-input {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        border-radius: 3px;
+      }
+
+      .btn-add-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        width: 100%;
+        border-radius: 3px;
+      }
+    }
+
+    .tracker-container {
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+
+    .tracker-wrapper {
+      gap: 0.5rem;
+    }
+
+    .items-column {
+      min-width: 120px;
+
+      .items-header {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.8rem;
+        border-radius: 3px 3px 0 0;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .item-row {
+        padding: 0.6rem 0.4rem;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.2rem;
+        box-sizing: border-box;
+
+        .item-name {
+          font-size: 0.7rem;
+          flex: 1;
+        }
+
+        .btn-remove {
+          width: 22px;
+          height: 22px;
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    .dates-container {
+      .dates-header {
+        border-radius: 0 3px 0 0;
+      }
+
+      .date-cell {
+        min-width: 32px;
+        padding: 0.6rem 0.2rem;
+        font-size: 0.55rem;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .progress-row {
+        border-radius: 0 0 3px 0;
+      }
+
+      .checkbox-cell {
+        min-width: 32px;
+        padding: 0.6rem 0.2rem;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .progress-checkbox {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .progress-tracker {
+    padding: 0.5rem;
+
+    h1 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .month-selector {
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+
+      label {
+        font-size: 0.8rem;
+      }
+
+      .month-dropdown {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    .add-item-section {
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+
+      .item-input {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+      }
+
+      .btn-add-item {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    .tracker-container {
+      padding: 0.35rem;
+    }
+
+    .items-column {
+      min-width: 100px;
+
+      .items-header {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.75rem;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .item-row {
+        padding: 0.5rem 0.3rem;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.2rem;
+        box-sizing: border-box;
+
+        .item-name {
+          font-size: 0.65rem;
+          flex: 1;
+        }
       }
     }
 
     .dates-container {
       .date-cell {
-        min-width: 40px;
-        padding: 0.5rem 0.3rem;
-        font-size: 0.65rem;
+        min-width: 28px;
+        padding: 0.5rem 0.2rem;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
       }
 
       .checkbox-cell {
-        min-width: 40px;
-        padding: 0.75rem 0.3rem;
+        min-width: 28px;
+        padding: 0.5rem 0.2rem;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .progress-checkbox {
+        width: 12px;
+        height: 12px;
       }
     }
   }
