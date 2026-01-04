@@ -223,7 +223,10 @@ const ProgressTracker = () => {
             {items.map((item) => (
               <div key={item.id} className="progress-row">
                 {datesForMonth.map((date, index) => (
-                  <div key={index} className="checkbox-cell">
+                  <div
+                    key={index}
+                    className={`checkbox-cell ${isToday(date) ? "today" : ""}`}
+                  >
                     <input
                       type="checkbox"
                       checked={isChecked(item.id, formatDate(date))}

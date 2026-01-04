@@ -1,4 +1,14 @@
 // ProgressTracker.scss
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.3), 0 0 8px rgba(255, 107, 107, 0.5);
+  }
+}
+
 .progress-tracker {
   padding: 2rem;
   max-width: 100%;
@@ -225,9 +235,18 @@
         color: white;
         font-size: 0.75rem;
         border-right: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.2s;
 
         &:last-child {
           border-right: none;
+        }
+
+        &.today {
+          background-color: #ff6b6b;
+          box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+          font-size: 0.8rem;
+          font-weight: 900;
+          animation: pulse-highlight 2s ease-in-out infinite;
         }
       }
     }
@@ -255,9 +274,14 @@
         justify-content: center;
         align-items: center;
         border-right: 1px solid #eee;
+        transition: background-color 0.2s;
 
         &:last-child {
           border-right: none;
+        }
+
+        &.today {
+          background-color: #fff5f5;
         }
 
         .progress-checkbox {
@@ -294,6 +318,10 @@
       .checkbox-cell {
         min-width: 45px;
         padding: 0.75rem 0.4rem;
+
+        &.today {
+          background-color: #fff5f5;
+        }
       }
     }
   }
@@ -418,6 +446,10 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
+
+        &.today {
+          background-color: #fff5f5;
+        }
       }
 
       .progress-checkbox {
@@ -549,6 +581,10 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
+
+        &.today {
+          background-color: #fff5f5;
+        }
       }
 
       .progress-checkbox {
@@ -655,6 +691,10 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
+
+        &.today {
+          background-color: #fff5f5;
+        }
       }
 
       .progress-checkbox {
