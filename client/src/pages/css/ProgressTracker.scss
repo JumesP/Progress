@@ -61,6 +61,41 @@
     }
   }
 
+  // Backup Section
+  .backup-section {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    .btn-backup {
+      padding: 0.75rem 1.5rem;
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #5a6268;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    .btn-import {
+      padding: 0.75rem 1.5rem;
+    }
+  }
+
   .add-item-section {
     display: flex;
     gap: 1rem;
@@ -351,6 +386,18 @@
       }
     }
 
+    .backup-section {
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+
+      .btn-backup {
+        flex: 1;
+        min-width: 150px;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
     .add-item-section {
       flex-direction: column;
       max-width: 100%;
@@ -481,6 +528,18 @@
       .month-dropdown {
         width: 100%;
         padding: 0.5rem 0.6rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    .backup-section {
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+
+      .btn-backup {
+        width: 100%;
+        padding: 0.6rem 1rem;
         font-size: 0.85rem;
       }
     }

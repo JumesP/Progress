@@ -129,6 +129,64 @@ const ProgressTracker = () => {
     return date.toISOString().split("T")[0];
   };
 
+  // Export data to JSON file
+  const exportData = () => {
+    const dataToExport = {
+      items,
+      progressData,
+      categories,
+      exportDate: new Date().toISOString(),
+    };
+
+    const dataString = JSON.stringify(dataToExport, null, 2);
+    const blob = new Blob([dataString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `progress-tracker-backup-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Import data from JSON file
+  const importData = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target?.result);
+
+        if (
+          importedData.items &&
+          importedData.progressData &&
+          importedData.categories
+        ) {
+          setItems(importedData.items);
+          setProgressData(importedData.progressData);
+          setCategories(importedData.categories);
+          alert(
+            "✅ Data imported successfully! Your goals and progress have been restored."
+          );
+        } else {
+          alert(
+            "❌ Invalid backup file. Please make sure you're importing a valid Progress Tracker backup."
+          );
+        }
+      } catch (error) {
+        alert("❌ Error reading file. Please make sure it's a valid JSON file.");
+        console.error(error);
+      }
+    };
+    reader.readAsText(file);
+
+    // Reset file input
+    event.target.value = "";
+  };
+
   const formatDateDisplay = (date) => {
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };
@@ -160,6 +218,22 @@ const ProgressTracker = () => {
             </option>
           ))}
         </select>
+      </div>
+
+      {/* Backup Section */}
+      <div className="backup-section">
+        <button className="btn-backup" onClick={exportData}>
+          💾 Export Backup
+        </button>
+        <label className="btn-backup btn-import">
+          📥 Import Backup
+          <input
+            type="file"
+            accept=".json"
+            onChange={importData}
+            style={{ display: "none" }}
+          />
+        </label>
       </div>
 
       <div className="add-item-section">
